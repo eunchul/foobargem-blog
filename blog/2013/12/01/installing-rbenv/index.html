@@ -5,14 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Life with Linux</title>
+  <title>Installing Rbenv on OS X - Life with Linux</title>
   <meta name="author" content="foobargem">
 
   
-  <meta name="description" content="Macbook Air 난 맥북 에어를 좋아한다.
-가볍고, 13인치 화면에서 1400x900 해상도가 지원이 되며 전력관리가 우수하기 때문이다.
-2010년에 처음으로 맥북 에어를 구입하고 OS X 를 사용하면서 리눅스가 너무너무 그리웠다.
-예쁘고 멋진 인터페이스에 나름 &hellip;">
+  <meta name="description" content="늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다.
+OS X Mavericks 에서는 ruby-2.0.0p247 이 시스템에 설치되어 있다.
+그래도 최신버전의 ruby와 GEM 을 편리하게 관리하려면 rbenv 만한 것도 없는것 같다. Rbenv 프로젝트 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://eunchul.github.io/foobargem-blog">
+  <link rel="canonical" href="http://eunchul.github.io/foobargem-blog/blog/2013/12/01/installing-rbenv">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Life with Linux" type="application/atom+xml">
@@ -66,127 +65,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/14/installing-debian-on-macbook-air/">Macbook Air 에 Debian(wheezy) 설치하기</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-14T23:09:46+09:00" pubdate data-updated="true">Dec 14<span>th</span>, 2013</time>
-        
-           | <a href="/blog/2013/12/14/installing-debian-on-macbook-air/#disqus_thread"
-             data-disqus-identifier="http://eunchul.github.io/foobargem-blog/blog/2013/12/14/installing-debian-on-macbook-air/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Macbook Air</h3>
-
-<p>난 맥북 에어를 좋아한다.
-가볍고, 13인치 화면에서 1400x900 해상도가 지원이 되며 전력관리가 우수하기 때문이다.
-2010년에 처음으로 맥북 에어를 구입하고 OS X 를 사용하면서 리눅스가 너무너무 그리웠다.
-예쁘고 멋진 인터페이스에 나름 안정적인 OS X 였지만
-어느날 iTunes 를 업데이트한뒤 iTunes 의 버그로 시스템이 멈추는 현상이 생겼고
-그 후로 Update 할때마다 시스템이 죽는게 아닐까 걱정이 되더라. :(</p>
-
-<p>v10.6 > v10.7 > v10.8 > v10.9 까지 판올림을 해오면서 잘 써왔지만 이젠 리눅스로 돌아가기로 결심!</p>
-
-<h3>준비</h3>
-
-<p>Debian wheezy(7.2.0-amd64-netinst) iso 파일을 다운로드 받아서 USB drive 를 만든다.
-또한 네트워크 <a href="http://ftp.kr.debian.org/debian/pool/non-free/f/firmware-nonfree/firmware-brcm80211_0.36+wheezy.1_all.deb">firmware (firmware-brcm80211)</a> 도 다운로드 받아서 다른 USB 에 저장한다.
-여유가 있을때 macbook air 에 설치할 수 있는 netinst 로 패키징을 해야겠다.</p>
-
-<p>만들어진 USB 를 꼽고 부팅을 한다. 부팅할때 Option 키를 누르고 있어야 설치디스크 선택 화면이 나온다.
-EFI 장치를 선택하고 부팅하면 Debian Installer 화면이 보인다.</p>
-
-<h3>설치</h3>
-
-<p>설치는 installer 인터페이스로 디스크 파티셔닝까지 진행을 한뒤 콘솔로 수동 작업을 해줘야 한다.</p>
-
-<p>파티션은 200MB를 EFI system partition 으로, 30GB를 시스템의 루트(/) 파티션으로, 2GB를 스왑으로 잡았다.
-남은 디스크는 OS 설치후 추가 하기 위해 놔두었다.</p>
-
-<p><strong>Base system</strong></p>
-
-<p>파티션을 잡은 뒤 Base system 설치가 진행되다가 실패한다. 원인은 정확하게 모르겠다.;;
-alt+F2 를 눌러서 콘솔로 접속을 한다. 이시점이면 /target 디렉토리가 존재할것이다. 없다면 mkdir!!</p>
-
-<pre><code># debootstrap --arch amd64 wheezy /target http://ftp.neowiz.com/debian
-...
-# mount -o bind /proc /target/proc
-# mount -o bind /sys /target/sys
-# mount -o bind /dev /target/dev
-# mount -o bind /dev/pts /target/dev/pts
-# chroot /target /bin/bash
-# mkdir /boot/efi
-# mount /dev/sda1 /boot/efi
-</code></pre>
-
-<p><strong>패키지 설치</strong></p>
-
-<pre><code># modprobe efivars
-# apt-get install initramfs-tools linux-image-3.2.0-4-amd64 grub-efi-amd64 firmware-brcm80211 wireless-tools wpasupplicant
-# update-initramfs -u
-# grub-install /dev/sda
-# update-grub
-# umount /dev/sda1
-# exit
-# umount /target/dev/pts
-# umount /target/dev
-# umount /target/sys
-# umount /target/proc
-# reboot
-</code></pre>
-
-<h3>완료</h3>
-
-<p>이제 부팅이 되면 바로 grub 화면이 보이고 Debian 으로 부팅할 수 있게 된다.</p>
-
-<h3>남은것들</h3>
-
-<p>이제 Macbook Air 가 가지고 있는 하드웨어의 기능을 사용하기 위해 이런저런 삽질이 남았다.</p>
-
-<h3>참고</h3>
-
-<p><a href="http://alexandre.delanoe.org/blog/archives/2012/10/index.html#e2012-10-05T09_04_38.txt">http://alexandre.delanoe.org/blog/archives/2012/10/index.html#e2012-10-05T09_04_38.txt</a><br/ >
-<a href="http://dentifrice.poivron.org/laptops/macbookair3,1/">http://dentifrice.poivron.org/laptops/macbookair3,1/</a><br/ >
-<a href="http://blog.felipe-alfaro.com/2006/09/19/installing-refit-on-the-hidden-efi-system-partition/">http://blog.felipe-alfaro.com/2006/09/19/installing-refit-on-the-hidden-efi-system-partition/</a><br/ >
-<a href="https://wiki.debian.org/MacBookAir">https://wiki.debian.org/MacBookAir</a><br/ >
-<a href="https://wiki.debian.org/InstallingDebianOn/Apple/MacBookAir/5-1">https://wiki.debian.org/InstallingDebianOn/Apple/MacBookAir/5-1</a><br/ ></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/01/installing-rbenv/">Installing Rbenv on OS X</a></h1>
+      <h1 class="entry-title">Installing Rbenv on OS X</h1>
     
     
       <p class="meta">
@@ -204,15 +88,15 @@ alt+F2 를 눌러서 콘솔로 접속을 한다. 이시점이면 /target 디렉�
 
 <time datetime="2013-12-01T22:12:48+09:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
         
-           | <a href="/blog/2013/12/01/installing-rbenv/#disqus_thread"
-             data-disqus-identifier="http://eunchul.github.io/foobargem-blog/blog/2013/12/01/installing-rbenv/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://eunchul.github.io/foobargem-blog">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다.
+<div class="entry-content"><p>늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다.
 OS X Mavericks 에서는 ruby-2.0.0p247 이 시스템에 설치되어 있다.
 그래도 최신버전의 ruby와 GEM 을 편리하게 관리하려면 rbenv 만한 것도 없는것 같다.</p>
 
@@ -267,18 +151,59 @@ $ ruby --version
 <p>이것으로 완료!!
 즐거운 루비 곡갱이질을.. :)</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">foobargem</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2013-12-01T22:12:48+09:00" pubdate data-updated="true">Dec 1<span>st</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/14/installing-debian-on-macbook-air/" title="Next Post: Macbook Air 에 Debian(wheezy) 설치하기">Macbook Air 에 Debian(wheezy) 설치하기 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -303,6 +228,7 @@ $ ruby --version
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -317,7 +243,10 @@ $ ruby --version
       var disqus_shortname = 'lifewithlinux';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://eunchul.github.io/foobargem-blog/blog/2013/12/01/installing-rbenv/';
+        var disqus_url = 'http://eunchul.github.io/foobargem-blog/blog/2013/12/01/installing-rbenv/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

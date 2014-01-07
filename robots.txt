@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://eunchul.github.io/foobargem-blog/sitemap.xml 

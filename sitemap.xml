@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>http://eunchul.github.io/foobargem-blog/blog/2013/12/01/installing-rbenv/</loc>
+        <lastmod>2013-12-03T23:14:48+09:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://eunchul.github.io/foobargem-blog/blog/2013/12/14/installing-debian-on-macbook-air/
+        </loc>
+        <lastmod>2013-12-15T00:02:26+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://eunchul.github.io/foobargem-blog/blog/archives/</loc>
+        <lastmod>2013-12-15T00:02:26+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://eunchul.github.io/foobargem-blog/</loc>
+        <lastmod>2013-12-15T00:02:26+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://eunchul.github.io/foobargem-blog/robots.txt</loc>
+        <lastmod>2013-12-01T22:12:46+09:00</lastmod>
+    </url>
+</urlset>
