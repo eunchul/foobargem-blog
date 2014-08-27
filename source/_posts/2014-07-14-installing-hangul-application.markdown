@@ -3,7 +3,7 @@ layout: post
 title: "한글2007 설치하기 - 여자친구를 위한"
 date: 2014-07-14 21:31:05 +0900
 comments: true
-categories: 
+categories: [life]
 ---
 
 ### 머리말

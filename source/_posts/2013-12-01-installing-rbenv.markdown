@@ -3,7 +3,7 @@ layout: post
 title: "Installing rbenv on OS X"
 date: 2013-12-01 22:12:48 +0900
 comments: true
-categories: 
+categories: [ruby]
 ---
 
 늘 하는 얘기지만 Linux 에서는 이런 고민은 안해도 된다.

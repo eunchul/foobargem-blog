@@ -3,7 +3,7 @@ layout: post
 title: "Multipath"
 date: 2014-08-27 11:11:11 +0900
 comments: true
-categories: 
+categories: [linux, debian, storage]
 ---
 
 컴퓨터 스토리지에서 multipath I/O 는 결함감내시스템(Fault tolerance) 과 성능(Performance) 향상을 위한 기술을 말한다.

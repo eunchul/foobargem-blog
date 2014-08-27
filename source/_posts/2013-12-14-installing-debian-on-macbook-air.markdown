@@ -4,7 +4,7 @@ layout: post
 title: "Macbook Air 에 Debian(wheezy) 설치하기"
 date: 2013-12-14 23:09:46 +0900
 comments: true
-categories: 
+categories: [linux, debian]
 ---
 
 ### Macbook Air
