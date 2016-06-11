@@ -22,7 +22,9 @@ VMware VM 중 1대의 Disk 공간이 부족해서 resize 를 하려고 했는데
 
     $ mkdir rpmbuild
     $ cd rpmbuild
-    $ mkdir SOURCES SPECS BUILD RPMS SRPMS
+    $ mkdir SOURCES SPECS BUILD BUILDROOT RPMS SRPMS
+    $ ls
+    BUILD  BUILDROOT  RPMS  SOURCES  SPECS  SRPMS
 
 
 <table>
